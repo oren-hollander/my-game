@@ -1,14 +1,14 @@
-import React from 'react';
+import React from 'react'
 
 const SignIn = ({signIn}) => 
   <div>
-    You are signed out
+    <p>You are signed out</p>
     <button onClick={signIn}>Sign In</button>
   </div>
 
 const SignOut = ({signOut}) =>
   <div>
-    You are signed in
+    <p>You are signed in</p>
     <button onClick={signOut}>Sign Out</button>
   </div>
 

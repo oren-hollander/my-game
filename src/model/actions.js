@@ -1,16 +1,20 @@
-import { appendRow, getRows } from './eventsAPI'
 import { forEach } from 'lodash/fp'
+import { signIn as signInGapi, signOut as signOutGapi } from '../api/gapi'
+import { appendRow, getRows } from '../api/eventsAPI'
 import { codec } from './eventCodec'
 import { START_SESSION, BUY_IN, END_SESSION } from './eventKeys'
-import { signIn as signInGapi, signOut as signOutGapi } from './gapi'
 
 export const SIGN_IN = 'sign-in'
 export const SIGN_OUT = 'sign-out'
 export const APPEND_EVENT = 'append-event'
+export const SHOW_VIEW = 'show-view'
+export const SET_CURRENT_SESSION = 'set-current-session'
 
 export const signIn = () => ({type: SIGN_IN})
 export const signOut = () => ({type: SIGN_OUT})
 export const appendEvent = event => ({type: APPEND_EVENT, event})
+export const showView = view => ({type: SHOW_VIEW, view})
+export const setCurrentSession = session => ({type: SET_CURRENT_SESSION, session})
 
 const codecs = {
   [START_SESSION]: codec(['ts', 'location']),
@@ -23,7 +27,7 @@ export const loadEvents = () => dispatch => {
     const type = row[0]
     const event = codecs[type].decode(row)
     dispatch(appendEvent(event))
-  }))
+  })) 
 }
 
 export const saveEvent = event => dispatch => {
