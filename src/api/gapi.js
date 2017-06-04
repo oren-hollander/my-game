@@ -1,14 +1,14 @@
 const gapi = window.gapi
 
 const initData = {
-  clientId: '650088418358-4k6l85lihltl7tkpsrur329hkt93c01c.apps.googleusercontent.com',
+  clientId: '650088418358-6t81k1vrhbrv4ekv38g1kt9s7lner4oo.apps.googleusercontent.com',
   discoveryDocs: ["https://script.googleapis.com/$discovery/rest?version=v1"],
   scope: 'https://www.googleapis.com/auth/spreadsheets'
 }
 
 export function callRemote(functionName, parameters) {
   const scriptId = "MRS76Uwc518XjzohfvxxU4LbiB0og-dIC"
-
+                    
   return gapi.client.script.scripts.run({
     scriptId,
     resource: {
@@ -37,16 +37,6 @@ export function callRemote(functionName, parameters) {
   });
 }
 
-// export const init = updateStatus => {
-//   gapi.load('client:auth2', () => {
-//     gapi.client.init(initData).then(function () {
-//       gapi.auth2.getAuthInstance().isSignedIn.listen(updateStatus);
-//       updateStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-//     });
-//   });
-// }
-
-
 export const init = () => {
   return new Promise((resolve, reject) => {
     gapi.load('client:auth2', () => {
@@ -67,4 +57,3 @@ export const signIn = () => {
 export const signOut = () => {
    return gapi.auth2.getAuthInstance().signOut()
 }
-

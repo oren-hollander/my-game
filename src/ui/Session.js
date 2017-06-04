@@ -1,17 +1,14 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 
 import Events from './Events'
-import { selectSessionEvents } from '../model/selectors'
+import { last } from 'lodash/fp'
 
-const SessionEvents = connect(state => ({events: selectSessionEvents(state)}))(Events)
+import AddEvent from './AddEvent'
 
-export default class Session extends Component {
-  render() {
-    return (
-      <div>
-        <SessionEvents/>
-      </div>
-    )
-  }
-}
+const Session = ({events, appendEvent}) => 
+  <div>
+    <Events events={events}/>
+    <AddEvent lastEvent={last(events)} appendEvent={appendEvent}/>
+  </div>
+
+export default Session

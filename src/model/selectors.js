@@ -24,8 +24,8 @@ export const selectSessionEvents = createSelector (
   }
 )
 
-export const selectLastEvent = session => createSelector (
-  selectSessionEvents,
+export const selectLastEvent = createSelector (
+  selectAllEvents,
   last
 )
 

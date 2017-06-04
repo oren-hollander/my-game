@@ -1,13 +1,11 @@
 import React from 'react'
 import { map, isEmpty } from 'lodash/fp'
 import { START_SESSION, BUY_IN, END_SESSION } from '../model/eventKeys'
-import { connect } from 'react-redux'
-import { VIEW_SESSION } from './View'
-import { showView, setCurrentSession } from '../model/actions'
+import Link from './Link'
 
-const StartSession = ({showSessionView, event}) => 
+const StartSession = ({event}) => 
   <div>
-    <a href="" onClick={() => showSessionView(event)} >Session started at {event.ts}, at {event.location}</a>
+    Session started at {event.ts}, at {event.location}
   </div>
 
 const BuyIn = ({event}) => 
@@ -20,22 +18,12 @@ const EndSession = ({event}) =>
     Session ended at {event.ts} with {event.amount}
   </div>
 
-const ConnectedStartSession = connect(
-  null, 
-  dispatch => ({
-    showSessionView: session => {
-      dispatch(setCurrentSession(session))
-      dispatch(showView(VIEW_SESSION))
-    }
-  })
-)(StartSession)
-
 const getEventComponent = type => {
   switch(type){
     case BUY_IN:
       return BuyIn
     case START_SESSION:
-      return ConnectedStartSession
+      return StartSession
     case END_SESSION:
       return EndSession
     default:
@@ -43,13 +31,15 @@ const getEventComponent = type => {
   }
 }
 
-const Events = ({events}) => isEmpty(events)
+const Events = ({events, showSession}) => isEmpty(events)
   ? <div>Nothing to show</div>
   : <div>
       {
         map(event => { 
           const Comp = getEventComponent(event.type)
-          return <Comp key={event.ts} event={event}/> 
+          return event.type === START_SESSION && showSession 
+            ? <Link key={event.ts} onClick={e => {showSession(event)}}><Comp event={event}/></Link>
+            : <Comp key={event.ts} event={event}/> 
         }, events) 
       }
     </div>

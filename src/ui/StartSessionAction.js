@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
-import { START_SESSION } from '../model/eventKeys'
 import { StartSessionEvent } from '../model/events'
+import PropTypes from 'prop-types'
 
 export default class StartSessionAction extends Component {
+  static propTypes = {
+    appendEvent: PropTypes.func.isRequired
+  }
+  
   render() {
     return (
       <div>

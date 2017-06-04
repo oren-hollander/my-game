@@ -24,16 +24,8 @@ const updateSignedInStatus = signedIn => {
   }
 }
 
-initGAPI(updateSignedInStatus).then(updateSignedInStatus)
+initGAPI().then(updateSignedInStatus)
 
-// const mapStateToProps = ({signedIn}) => ({signedIn})
-// const mapDispatchToProps = dispatch => ({
-//   signIn: () => dispatch(gapiSignIn()),
-//   signOut: () => dispatch(gapiSignOut())
-// })
-
-// const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App)
-  
 render(
   <Provider store={store}>
     <App/>

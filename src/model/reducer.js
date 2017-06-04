@@ -1,5 +1,5 @@
 import { APPEND_EVENT, SIGN_IN, SIGN_OUT, SHOW_VIEW, SET_CURRENT_SESSION } from './actions'
-import { VIEW_LOG } from '../ui/View'
+import { VIEW_LOG, VIEW_SESSION } from '../ui/View'
 
 const defaultState = {
   currentSession: null,
@@ -11,7 +11,12 @@ const defaultState = {
 const reducer = (state = defaultState, action) => {
   switch(action.type){
     case SHOW_VIEW: 
-      return {...state, view: action.view}
+      switch(action.view){
+        case VIEW_SESSION:
+          return {...state, view: VIEW_SESSION, currentSession: action.session}
+        default:
+          return {...state, view: action.view}
+      }
     case SET_CURRENT_SESSION:
       return {...state, currentSession: action.session}
     case APPEND_EVENT:
